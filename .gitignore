@@ -1,0 +1,4 @@
+.idea/
+.wrangler/
+*.env
+.DS_Store
