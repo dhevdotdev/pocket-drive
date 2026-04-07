@@ -1,0 +1,1 @@
+{"rules":[{"allowed":{"origins":["http://localhost:5173"],"methods":["GET","PUT","HEAD"],"headers":["Content-Type","Content-Length"]},"exposeHeaders":["ETag"],"maxAgeSeconds":3600}]}
