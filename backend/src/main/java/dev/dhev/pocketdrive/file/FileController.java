@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,9 +26,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/files")
 public class FileController {
 
-    // TODO Phase 4: replace with jwt.getSubject() from @AuthenticationPrincipal Jwt jwt
-    private static final String DEV_OWNER_ID = "dev-user";
-
     private final FileService fileService;
 
     public FileController(FileService fileService) {
@@ -35,30 +34,32 @@ public class FileController {
 
     @PostMapping("/upload")
     @ResponseStatus(HttpStatus.CREATED)
-    UploadInitiateResponse initiateUpload(@Valid @RequestBody UploadInitiateRequest request) {
-        return fileService.initiateUpload(DEV_OWNER_ID, request);
+    UploadInitiateResponse initiateUpload(
+        @Valid @RequestBody UploadInitiateRequest request,
+        @AuthenticationPrincipal Jwt jwt) {
+        return fileService.initiateUpload(jwt.getSubject(), request);
     }
 
     @PostMapping("/{fileId}/confirm")
-    FileResponse confirmUpload(@PathVariable UUID fileId) {
-        return fileService.confirmUpload(fileId, DEV_OWNER_ID);
+    FileResponse confirmUpload(@PathVariable UUID fileId, @AuthenticationPrincipal Jwt jwt) {
+        return fileService.confirmUpload(fileId, jwt.getSubject());
     }
 
     @GetMapping
     FileListResponse listFiles(
-        @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable
-    ) {
-        return fileService.listFiles(DEV_OWNER_ID, pageable);
+        @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+        @AuthenticationPrincipal Jwt jwt) {
+        return fileService.listFiles(jwt.getSubject(), pageable);
     }
 
     @GetMapping("/{fileId}/download")
-    DownloadResponse getDownloadUrl(@PathVariable UUID fileId) {
-        return fileService.getDownloadUrl(fileId, DEV_OWNER_ID);
+    DownloadResponse getDownloadUrl(@PathVariable UUID fileId, @AuthenticationPrincipal Jwt jwt) {
+        return fileService.getDownloadUrl(fileId, jwt.getSubject());
     }
 
     @DeleteMapping("/{fileId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteFile(@PathVariable UUID fileId) {
-        fileService.deleteFile(fileId, DEV_OWNER_ID);
+    void deleteFile(@PathVariable UUID fileId, @AuthenticationPrincipal Jwt jwt) {
+        fileService.deleteFile(fileId, jwt.getSubject());
     }
 }

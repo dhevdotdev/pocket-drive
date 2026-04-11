@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,13 +41,15 @@ import static org.mockito.Mockito.when;
     "r2.endpoint=https://test.r2.cloudflarestorage.com",
     "r2.bucket=test-bucket",
     "r2.access-key=test-key",
-    "r2.secret-key=test-secret",
-    "spring.security.oauth2.resourceserver.jwt.issuer-uri="
+    "r2.secret-key=test-secret"
 })
 class FileServiceTest {
 
     @Autowired
     FileService fileService;
+
+    @MockitoBean
+    JwtDecoder jwtDecoder;
 
     @MockitoBean
     R2StorageService r2;
