@@ -10,18 +10,18 @@ export function Toaster() {
         <div
           key={toast.id}
           className={cn(
-            "pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-sm font-medium max-w-xs",
+            "pointer-events-auto flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-sm font-medium max-w-xs border",
             toast.type === "success"
-              ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900"
-              : "bg-red-600 text-white"
+              ? "bg-ctp-crust text-ctp-text border-ctp-surface0"
+              : "bg-ctp-red/10 text-ctp-red border-ctp-red/30"
           )}
         >
           {toast.type === "success" ? (
-            <svg className="w-4 h-4 shrink-0 text-violet-400 dark:text-violet-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg className="w-4 h-4 shrink-0 text-ctp-green" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
           ) : (
-            <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <svg className="w-4 h-4 shrink-0 text-ctp-red" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v4m0 4h.01" />
             </svg>
           )}
