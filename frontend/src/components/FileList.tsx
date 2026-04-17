@@ -84,7 +84,7 @@ export function FileList({ refreshKey }: Props) {
     return (
       <div className="space-y-2">
         {[...Array(3)].map((_, i) => (
-          <div key={i} className="h-[60px] rounded-xl bg-zinc-100 dark:bg-zinc-800/60 animate-pulse" />
+          <div key={i} className="h-[60px] rounded-xl bg-ctp-surface0 animate-pulse" />
         ))}
       </div>
     );
@@ -93,10 +93,10 @@ export function FileList({ refreshKey }: Props) {
   if (error) {
     return (
       <div className="text-center py-10 space-y-3">
-        <p className="text-sm text-red-500">{error}</p>
+        <p className="text-sm text-ctp-red">{error}</p>
         <button
           onClick={load}
-          className="text-xs px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors"
+          className="text-xs px-3 py-1.5 rounded-lg bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-surface1 transition-colors"
         >
           Retry
         </button>
@@ -107,47 +107,47 @@ export function FileList({ refreshKey }: Props) {
   if (!files.length) {
     return (
       <div className="text-center py-16 space-y-1">
-        <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">No files yet</p>
-        <p className="text-xs text-zinc-400 dark:text-zinc-500">Upload your first file above</p>
+        <p className="text-sm font-medium text-ctp-subtext0">No files yet</p>
+        <p className="text-xs text-ctp-overlay1">Upload your first file above</p>
       </div>
     );
   }
 
   return (
     <div>
-      <p className="text-xs font-medium text-zinc-400 uppercase tracking-wider mb-3">
+      <p className="text-xs font-medium text-ctp-overlay1 uppercase tracking-wider mb-3">
         {files.length} {files.length === 1 ? "file" : "files"}
       </p>
       <ul className="space-y-1.5">
         {files.map((file) => (
           <li
             key={file.fileId}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white dark:bg-zinc-900 border border-zinc-100 dark:border-zinc-800 hover:border-zinc-200 dark:hover:border-zinc-700 transition-colors shadow-sm"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl bg-ctp-base border border-ctp-surface0 hover:border-ctp-surface1 transition-colors shadow-sm"
           >
-            <div className="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center shrink-0 text-zinc-400">
+            <div className="w-8 h-8 rounded-lg bg-ctp-surface0 flex items-center justify-center shrink-0 text-ctp-overlay1">
               <FileIcon contentType={file.contentType} />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-medium text-zinc-800 dark:text-zinc-100 truncate leading-tight">
+              <p className="text-sm font-medium text-ctp-text truncate leading-tight">
                 {file.originalName}
               </p>
-              <p className="text-xs text-zinc-400 mt-0.5">
+              <p className="text-xs text-ctp-overlay1 mt-0.5">
                 {formatBytes(file.sizeBytes)} · {formatDate(file.createdAt)}
               </p>
             </div>
 
             {deleteState?.id === file.fileId && deleteState.phase === "confirming" ? (
               <div className="flex gap-1.5 shrink-0 items-center">
-                <span className="text-xs text-zinc-500 mr-1">Delete?</span>
+                <span className="text-xs text-ctp-subtext0 mr-1">Delete?</span>
                 <button
                   onClick={() => handleDelete(file.fileId, file.originalName)}
-                  className="text-xs px-3 py-1.5 rounded-lg bg-red-500 hover:bg-red-600 text-white font-medium transition-colors"
+                  className="text-xs px-3 py-1.5 rounded-lg bg-ctp-red text-ctp-base hover:opacity-80 font-medium transition-opacity"
                 >
                   Yes
                 </button>
                 <button
                   onClick={() => setDeleteState(null)}
-                  className="text-xs px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 font-medium transition-colors"
+                  className="text-xs px-3 py-1.5 rounded-lg bg-ctp-surface0 text-ctp-subtext1 hover:bg-ctp-surface1 font-medium transition-colors"
                 >
                   Cancel
                 </button>
@@ -157,7 +157,7 @@ export function FileList({ refreshKey }: Props) {
                 <button
                   onClick={() => handleDownload(file)}
                   aria-label={`Download ${file.originalName}`}
-                  className="text-xs px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-violet-100 dark:hover:bg-violet-900/30 text-zinc-500 hover:text-violet-600 dark:hover:text-violet-400 font-medium transition-colors"
+                  className="text-xs px-3 py-1.5 rounded-lg bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-mauve/15 hover:text-ctp-mauve font-medium transition-colors"
                 >
                   Download
                 </button>
@@ -165,7 +165,7 @@ export function FileList({ refreshKey }: Props) {
                   onClick={() => setDeleteState({ id: file.fileId, phase: "confirming" })}
                   disabled={deleteState?.id === file.fileId && deleteState.phase === "deleting"}
                   aria-label={`Delete ${file.originalName}`}
-                  className="text-xs px-3 py-1.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 hover:bg-red-100 dark:hover:bg-red-900/20 text-zinc-500 hover:text-red-500 font-medium disabled:opacity-40 transition-colors"
+                  className="text-xs px-3 py-1.5 rounded-lg bg-ctp-surface0 text-ctp-subtext0 hover:bg-ctp-red/15 hover:text-ctp-red font-medium disabled:opacity-40 transition-colors"
                 >
                   {deleteState?.id === file.fileId && deleteState.phase === "deleting" ? "…" : "Delete"}
                 </button>
