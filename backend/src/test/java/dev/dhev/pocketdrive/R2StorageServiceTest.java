@@ -1,6 +1,7 @@
 package dev.dhev.pocketdrive;
 
 import dev.dhev.pocketdrive.storage.R2StorageService;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,6 +10,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Disabled("Requires .env with real R2 credentials — run manually")
 @SpringBootTest
 @Import(TestcontainersConfiguration.class)
 @TestPropertySource(
