@@ -2,7 +2,7 @@
 
 A personal cloud drive built to learn production object-storage patterns — presigned S3 uploads, Clerk JWT auth, and a React UI. File bytes never touch the backend.
 
-[![CI](https://github.com/dhev-sivakumar/pocket-drive/actions/workflows/ci.yml/badge.svg)](https://github.com/dhev-sivakumar/pocket-drive/actions/workflows/ci.yml)
+[![CI](https://github.com/dhevdotdev/pocket-drive/actions/workflows/ci.yml/badge.svg)](https://github.com/dhevdotdev/pocket-drive/actions/workflows/ci.yml)
 
 ---
 
@@ -32,7 +32,7 @@ The backend is a metadata and authorization layer. All file transfers happen dir
 | Database | PostgreSQL 16 (Testcontainers in tests) |
 | Storage | Cloudflare R2 via AWS SDK v2 (`S3Client` + `S3Presigner`) |
 | Frontend | React 18 + Vite + TypeScript |
-| Styling | Tailwind CSS v4 + Catppuccin Latte/Mocha |
+| Styling | Tailwind CSS v4 |
 
 ---
 
